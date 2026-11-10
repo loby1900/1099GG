@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://Scripts/RaceWorld.gd" id="1"]
+[ext_resource type="PackedScene" path="res://Scenes/hud.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://Scenes/pause_menu.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://Scenes/fps_meter.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://Scenes/lap_timer.tscn" id="5"]
+
+[node name="World4" type="Node3D"]
+script = ExtResource("1")
+map_id = "Map3"
+waypoints = Array[Vector3]([Vector3(32.3, 0.0, 39.5), Vector3(-3.9, 0.0, 53.3), Vector3(-49.0, 0.0, 47.0), Vector3(-69.3, 0.0, 14.3), Vector3(-53.6, 0.0, -16.4), Vector3(-43.4, 0.0, -53.1), Vector3(4.1, 0.0, -56.5), Vector3(39.7, 0.0, -38.1), Vector3(66.1, 0.0, -13.6), Vector3(76.9, 0.0, 23.5)])
+track_width = 9.5
+road_color = Color(0.1, 0.1, 0.12, 1)
+scenery_theme = 3
+sky_top_color = Color(0.03, 0.04, 0.1, 1)
+sky_horizon_color = Color(0.1, 0.09, 0.16, 1)
+ground_color = Color(0.05, 0.06, 0.08, 1)
+ground_half_extents = Vector2(120, 120)
+sun_energy = 0.12
+sun_color = Color(0.55, 0.6, 0.85, 1)
+sun_basis_degrees = Vector3(-35, -70, 0)
+fog_color = Color(0.04, 0.045, 0.09, 1)
+fog_density = 0.003
+
+[node name="LapTimer" parent="." instance=ExtResource("5")]
+
+[node name="HUD" parent="." instance=ExtResource("2")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("3")]
+
+[node name="FPSMeter" parent="." instance=ExtResource("4")]

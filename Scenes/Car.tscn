@@ -1,0 +1,166 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://Scripts/car.gd" id="1"]
+[ext_resource type="Script" path="res://Scripts/wheel.gd" id="2"]
+[ext_resource type="Texture2D" path="res://Images/SmokeParticle.png" id="3"]
+[ext_resource type="Texture2D" path="res://Images/TachDial.png" id="4"]
+[ext_resource type="Texture2D" path="res://Images/TachNeedle.png" id="5"]
+
+[sub_resource type="StandardMaterial3D" id="StdMat_smoke"]
+transparency = 1
+shading_mode = 0
+billboard_mode = 1
+albedo_texture = ExtResource("3")
+
+[sub_resource type="QuadMesh" id="QuadMesh_smoke"]
+material = SubResource("StdMat_smoke")
+size = Vector2(0.55, 0.55)
+
+[sub_resource type="ParticleProcessMaterial" id="PPM_smoke"]
+direction = Vector3(0, 1, 0)
+spread = 30.0
+gravity = Vector3(0, 0.25, 0)
+initial_velocity_min = 0.3
+initial_velocity_max = 0.9
+scale_min = 0.6
+scale_max = 1.6
+color = Color(1, 1, 1, 0.3)
+
+[node name="Car" type="RigidBody3D"]
+mass = 1.0
+script = ExtResource("1")
+
+[node name="BodyCollision" type="CollisionShape3D" parent="."]
+
+[node name="Model" type="Node3D" parent="."]
+
+[node name="Wheels" type="Node3D" parent="."]
+
+[node name="FL_Wheel" type="RayCast3D" parent="Wheels"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.46, 0.4, 0.52)
+target_position = Vector3(0, -0.9, 0)
+script = ExtResource("2")
+is_front_wheel = true
+
+[node name="FR_Wheel" type="RayCast3D" parent="Wheels"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46, 0.4, 0.52)
+target_position = Vector3(0, -0.9, 0)
+script = ExtResource("2")
+is_front_wheel = true
+
+[node name="RL_Wheel" type="RayCast3D" parent="Wheels"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.46, 0.4, -0.52)
+target_position = Vector3(0, -0.9, 0)
+script = ExtResource("2")
+is_front_wheel = false
+
+[node name="RR_Wheel" type="RayCast3D" parent="Wheels"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46, 0.4, -0.52)
+target_position = Vector3(0, -0.9, 0)
+script = ExtResource("2")
+is_front_wheel = false
+
+[node name="Smoke" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.46, 0.3, -0.52)
+emitting = false
+amount = 18
+lifetime = 0.7
+explosiveness = 0.1
+process_material = SubResource("PPM_smoke")
+draw_pass_1 = SubResource("QuadMesh_smoke")
+
+[node name="Smoke2" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46, 0.3, -0.52)
+emitting = false
+amount = 18
+lifetime = 0.7
+explosiveness = 0.1
+process_material = SubResource("PPM_smoke")
+draw_pass_1 = SubResource("QuadMesh_smoke")
+
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="HeadlightL" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(-1, 0, 0, 0, 0.990268, 0.139173, 0, 0.139173, -0.990268, -0.32, 0.4, 0.92)
+light_color = Color(1.0, 0.96, 0.88, 1.0)
+light_energy = 4.0
+# Checked with a zeroed-energy A/B render on the night map: the warm glow
+# visible past the rear of the car from the chase camera is the headlight's
+# own forward beam lighting the road ahead, peeking out below the car's
+# silhouette from this elevated viewing angle -- not a shadow/occlusion bug
+# (toggling shadow_enabled alone didn't change it). Left on regardless since
+# it's cheap here (only this one car ever has active lights) and still
+# avoids any odd self-shadowing on the car's own body from a side/static cam.
+shadow_enabled = true
+spot_range = 16.0
+spot_angle = 35.0
+spot_angle_attenuation = 1.6
+
+[node name="HeadlightR" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(-1, 0, 0, 0, 0.990268, 0.139173, 0, 0.139173, -0.990268, 0.32, 0.4, 0.92)
+light_color = Color(1.0, 0.96, 0.88, 1.0)
+light_energy = 4.0
+shadow_enabled = true
+spot_range = 16.0
+spot_angle = 35.0
+spot_angle_attenuation = 1.6
+
+[node name="TailLightL" type="OmniLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.32, 0.38, -0.94)
+light_color = Color(1.0, 0.05, 0.05, 1.0)
+light_energy = 0.4
+omni_range = 2.5
+
+[node name="TailLightR" type="OmniLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32, 0.38, -0.94)
+light_color = Color(1.0, 0.05, 0.05, 1.0)
+light_energy = 0.4
+omni_range = 2.5
+
+[node name="EngineSound" type="AudioStreamPlayer" parent="."]
+volume_db = -6.0
+
+[node name="CarInfo" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CarInfo"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -360.0
+offset_top = -240.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CarInfo/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Gear" type="Label" parent="CarInfo/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Gear: N"
+
+[node name="Speed" type="Label" parent="CarInfo/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Speed: 0 km/h"
+
+[node name="TachDialBG" type="Sprite2D" parent="CarInfo/MarginContainer"]
+position = Vector2(230, 110)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4")
+
+[node name="Sprite2D2" type="Sprite2D" parent="CarInfo/MarginContainer"]
+position = Vector2(230, 110)
+scale = Vector2(0.42, 0.42)
+rotation_degrees = 33.0
+texture = ExtResource("5")

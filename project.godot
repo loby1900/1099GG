@@ -10,21 +10,30 @@ config_version=5
 
 [application]
 
-config/name="Hotlap"
-run/main_scene="res://Scenes/prva_s_hudbou.tscn"
-config/features=PackedStringArray("4.2", "Forward Plus")
-run/max_fps=240
-boot_splash/bg_color=Color(0.0745098, 0.0823529, 0.141176, 1)
-boot_splash/image="res://Images/Hotlap.png"
+config/name="Apex Drift"
+config/description="Arcade drift racing built in Godot 4.7, with full touch controls for mobile."
+config/version="1.0.0"
+run/main_scene="res://Scenes/MainMenu3D.tscn"
+config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://Images/logo.png"
-boot_splash/minimum_display_time=1500
+run/max_fps=240
+boot_splash/bg_color=Color(0.0352941, 0.0509804, 0.101961, 1)
+boot_splash/image="res://Images/Splash.png"
+boot_splash/fullsize=true
+boot_splash/use_filter=true
+boot_splash/minimum_display_time=1200
 
 [autoload]
 
 GameData="*res://Scripts/GameData.gd"
+TouchInputRouter="*res://Scripts/TouchInputRouter.gd"
 MusicController="*res://Scenes/music_controller.tscn"
 LoadingScreen="*res://Scripts/LoadingScreen.gd"
 BestLapManager="*res://Scripts/BestLapManager.gd"
+
+[audio]
+
+buses/default_bus_layout="res://default_bus_layout.tres"
 
 [display]
 
@@ -32,7 +41,10 @@ window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=3
 window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 window/vsync/vsync_mode=0
+window/handheld/orientation="sensor_landscape"
+window/energy_saving/keep_screen_on=true
 
 [input]
 
@@ -103,8 +115,14 @@ shift_down={
 [physics]
 
 3d/physics_engine="JoltPhysics3D"
+common/physics_ticks_per_second=90
 
 [rendering]
 
+renderer/rendering_method="mobile"
+renderer/rendering_method.mobile="mobile"
 textures/canvas_textures/default_texture_filter=3
+textures/vram_compression/import_etc2_astc=true
+anti_aliasing/quality/msaa_3d=1
 anti_aliasing/screen_space_roughness_limiter/amount=0.5
+lights_and_shadows/positional_shadow/soft_shadow_filter_quality=1

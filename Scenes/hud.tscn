@@ -1,0 +1,181 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://Scripts/hud.gd" id="1"]
+[ext_resource type="Script" path="res://Scripts/TouchJoystick.gd" id="2"]
+[ext_resource type="Texture2D" path="res://Images/SteeringWheel.png" id="3"]
+[ext_resource type="Texture2D" path="res://Images/BtnGas.png" id="4"]
+[ext_resource type="Texture2D" path="res://Images/BtnBrake.png" id="5"]
+[ext_resource type="Texture2D" path="res://Images/BtnShiftUp.png" id="6"]
+[ext_resource type="Texture2D" path="res://Images/BtnShiftDown.png" id="7"]
+[ext_resource type="Texture2D" path="res://Images/BtnPause.png" id="8"]
+[ext_resource type="Texture2D" path="res://Images/BtnArrowLeft.png" id="9"]
+[ext_resource type="Texture2D" path="res://Images/BtnArrowRight.png" id="10"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1")
+
+[node name="Dash" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="WheelIndicator" type="TextureRect" parent="Dash"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -55.0
+offset_top = -150.0
+offset_right = 55.0
+offset_bottom = -40.0
+mouse_filter = 2
+texture = ExtResource("3")
+expand_mode = 1
+stretch_mode = 5
+modulate = Color(1, 1, 1, 0.55)
+
+[node name="GasBar" type="ProgressBar" parent="Dash"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -34.0
+offset_right = -60.0
+offset_bottom = -14.0
+mouse_filter = 2
+modulate = Color(0.45, 0.9, 0.5, 0.85)
+show_percentage = false
+
+[node name="BrakeBar" type="ProgressBar" parent="Dash"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 60.0
+offset_top = -34.0
+offset_right = 150.0
+offset_bottom = -14.0
+mouse_filter = 2
+modulate = Color(0.95, 0.4, 0.4, 0.85)
+show_percentage = false
+
+[node name="TouchControls" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="SteerJoystick" type="Control" parent="TouchControls"]
+layout_mode = 0
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -290.0
+offset_right = 310.0
+offset_bottom = -30.0
+mouse_filter = 1
+script = ExtResource("2")
+max_radius = 100.0
+
+[node name="SteerDPad" type="Control" parent="TouchControls"]
+layout_mode = 0
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -290.0
+offset_right = 442.0
+offset_bottom = -30.0
+mouse_filter = 2
+visible = false
+
+[node name="ArrowLeftButton" type="TouchScreenButton" parent="TouchControls/SteerDPad"]
+position = Vector2(10, 42)
+scale = Vector2(0.8, 0.8)
+texture_normal = ExtResource("9")
+action = "ui_left"
+visibility_mode = 0
+
+[node name="ArrowRightButton" type="TouchScreenButton" parent="TouchControls/SteerDPad"]
+position = Vector2(206, 42)
+scale = Vector2(0.8, 0.8)
+texture_normal = ExtResource("10")
+action = "ui_right"
+visibility_mode = 0
+
+[node name="PedalsAnchor" type="Control" parent="TouchControls"]
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -600.0
+offset_top = -600.0
+offset_right = -20.0
+offset_bottom = -20.0
+mouse_filter = 2
+
+[node name="GasButton" type="TouchScreenButton" parent="TouchControls/PedalsAnchor"]
+position = Vector2(340, 300)
+texture_normal = ExtResource("4")
+action = "ui_up"
+visibility_mode = 0
+
+[node name="BrakeButton" type="TouchScreenButton" parent="TouchControls/PedalsAnchor"]
+position = Vector2(340, 60)
+texture_normal = ExtResource("5")
+action = "ui_down"
+visibility_mode = 0
+
+[node name="ShiftUpButton" type="TouchScreenButton" parent="TouchControls/PedalsAnchor"]
+position = Vector2(90, 90)
+scale = Vector2(0.65, 0.65)
+texture_normal = ExtResource("6")
+action = "shift_up"
+visibility_mode = 0
+
+[node name="ShiftDownButton" type="TouchScreenButton" parent="TouchControls/PedalsAnchor"]
+position = Vector2(90, 290)
+scale = Vector2(0.65, 0.65)
+texture_normal = ExtResource("7")
+action = "shift_down"
+visibility_mode = 0
+
+[node name="PauseAnchor" type="Control" parent="TouchControls"]
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = -110.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 110.0
+mouse_filter = 2
+
+[node name="PauseButton" type="TouchScreenButton" parent="TouchControls/PauseAnchor"]
+position = Vector2(45, 45)
+scale = Vector2(0.55, 0.55)
+texture_normal = ExtResource("8")
+visibility_mode = 0

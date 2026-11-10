@@ -1,78 +1,59 @@
 extends Control
+## Car picker. Used to jump straight into one of 24 pre-baked "this car on
+## this map" scenes; now it just records the chosen car_type on GameData
+## and loads the single map scene the player already picked, which reads
+## GameData.selected_car at runtime and configures the shared Car.tscn
+## accordingly (see car.gd). Adding a new car now only means adding one
+## entry to car.gd's dictionaries - no new scenes.
 
-func _on_back_pressed():
-	get_tree().change_scene_to_file("res://Scenes/MainMenu3D.tscn")
+func _choose(car_type: String) -> void:
+	GameData.selected_car = car_type
+	if GameData.selected_map != "":
+		LoadingScreen.load_scene(GameData.selected_map)
+	else:
+		# Defensive fallback in case this screen is ever reached directly.
+		get_tree().change_scene_to_file("res://Scenes/select_map.tscn")
 
-#auticka
 
 func _on_porsche_pressed():
-	#GameData.selected_car = 
-	#print("Porshce ", GameData.selected_map)
-	#LoadingScreen.load_scene("res://Scenes/world.tscn")
-	if GameData.selected_map == "res://Scenes/world.tscn":
-		LoadingScreen.load_scene("res://Scenes/world.tscn")
-	elif GameData.selected_map == "res://Scenes/world_2.tscn":
-		LoadingScreen.load_scene("res://Scenes/CarMapCombos/world_2_ff_base_porsche.tscn")
-	else :
-		LoadingScreen.load_scene("res://Scenes/world_3.tscn")
+	_choose("Porsche")
 
-func _on_nsx_pressed():
-	if GameData.selected_map == "res://Scenes/world.tscn":
-		LoadingScreen.load_scene("res://Scenes/CarMapCombos/world_1f_nsx.tscn")
-	elif GameData.selected_map == "res://Scenes/world_2.tscn":
-		LoadingScreen.load_scene("res://Scenes/CarMapCombos/world_2_ff_base_nsx.tscn")
-	else :
-		LoadingScreen.load_scene("res://Scenes/CarMapCombos/world_3_ff_nsx.tscn")
 
-func _on_mercedes_pressed():
-	if GameData.selected_map == "res://Scenes/world.tscn":
-		LoadingScreen.load_scene("res://Scenes/CarMapCombos/world_1f_merc.tscn")
-	elif GameData.selected_map == "res://Scenes/world_2.tscn":
-		LoadingScreen.load_scene("res://Scenes/CarMapCombos/world_2_ff_base_mercedes.tscn")
-	else :
-		LoadingScreen.load_scene("res://Scenes/CarMapCombos/world_3_ff_mercedes.tscn")
+func _on_dodge_pressed():
+	_choose("Dodge")
 
 
 func _on_supra_pressed():
-	if GameData.selected_map == "res://Scenes/world.tscn":
-		LoadingScreen.load_scene("res://Scenes/CarMapCombos/world_1f_supra.tscn")
-	elif GameData.selected_map == "res://Scenes/world_2.tscn":
-		LoadingScreen.load_scene("res://Scenes/CarMapCombos/world_2_ff_base_supra.tscn")
-	else :
-		LoadingScreen.load_scene("res://Scenes/CarMapCombos/world_3_ff_supra.tscn")
+	_choose("Supra")
 
 
-func _on_rx_7_pressed():
-	if GameData.selected_map == "res://Scenes/world.tscn":
-		LoadingScreen.load_scene("res://Scenes/CarMapCombos/world_1f_rx7.tscn")
-	elif GameData.selected_map == "res://Scenes/world_2.tscn":
-		LoadingScreen.load_scene("res://Scenes/CarMapCombos/world_2_ff_base_rx7.tscn")
-	else :
-		LoadingScreen.load_scene("res://Scenes/CarMapCombos/world_3_ff_rx7.tscn")
+func _on_rx7_pressed():
+	_choose("RX7")
 
 
-func _on_formula_pressed():
-	if GameData.selected_map == "res://Scenes/world.tscn":
-		LoadingScreen.load_scene("res://Scenes/CarMapCombos/world_1f_f1.tscn")
-	elif GameData.selected_map == "res://Scenes/world_2.tscn":
-		LoadingScreen.load_scene("res://Scenes/CarMapCombos/world_2_ff_base_f1.tscn")
-	else :
-		LoadingScreen.load_scene("res://Scenes/CarMapCombos/world_3_ff_f1.tscn")
+func _on_mercedes_pressed():
+	_choose("Mercedes")
 
 
 func _on_evo_pressed():
-	if GameData.selected_map == "res://Scenes/world.tscn":
-		LoadingScreen.load_scene("res://Scenes/CarMapCombos/world_1f_evo.tscn")
-	elif GameData.selected_map == "res://Scenes/world_2.tscn":
-		LoadingScreen.load_scene("res://Scenes/CarMapCombos/world_2_ff_base_evo.tscn")
-	else :
-		LoadingScreen.load_scene("res://Scenes/CarMapCombos/world_3_ff_evo.tscn")
+	_choose("EVO")
 
 
-func _on_challenger_pressed():
-	if GameData.selected_map == "res://Scenes/world.tscn":
-		LoadingScreen.load_scene("res://Scenes/CarMapCombos/world_1f_dodge.tscn")
-	elif GameData.selected_map == "res://Scenes/world_2.tscn":
-		LoadingScreen.load_scene("res://Scenes/CarMapCombos/world_2_ff_base_dodge.tscn")
-	else :
-		LoadingScreen.load_scene("res://Scenes/CarMapCombos/world_3_dodge.tscn")
+func _on_nsx_pressed():
+	_choose("NSX")
+
+
+func _on_f1_pressed():
+	_choose("F1")
+
+
+func _on_bmw330i_pressed():
+	_choose("BMW330i")
+
+
+func _on_bmwm4gt3_pressed():
+	_choose("BMWM4GT3")
+
+
+func _on_back_pressed():
+	get_tree().change_scene_to_file("res://Scenes/select_map.tscn")

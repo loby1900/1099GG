@@ -1,0 +1,11 @@
+# Godot 4 editor cache
+.godot/
+*.translation
+
+# Godot export cache/build artifacts
+export/
+*.pck
+
+# OS / editor junk
+.DS_Store
+*.tmp

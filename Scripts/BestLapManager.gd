@@ -11,11 +11,13 @@ func load_best_times():
 	if error == ERR_FILE_NOT_FOUND:
 		initialize_default_best_times()
 
+const KNOWN_MAP_IDS := ["Map1", "Map2", "Map3"]
+
+
 func initialize_default_best_times():
-	# Initialize with default best times for each map
-	config.set_value("Map1", "times", [9999.0, 9999.0, 9999.0])
-	config.set_value("Map2", "times", [9999.0, 9999.0, 9999.0])
-	# ... add additional maps as needed
+	# Initialize with default (never-raced) best times for every known map.
+	for map_name in KNOWN_MAP_IDS:
+		config.set_value(map_name, "times", [9999.0, 9999.0, 9999.0])
 	config.save(best_times_file)
 
 func save_best_time(map_name: String, time: float) -> void:
@@ -40,7 +42,12 @@ func get_best_times(map_name: String) -> Array:
 	return config.get_value(map_name, "times", [9999.0, 9999.0, 9999.0])
 
 func clear_best_times() -> void:
-	var maps = ["Map1", "Map2"]  
-	for map_name in maps:
+	# Clear every map section actually present in the save file, not just a
+	# hardcoded list, so a newly added map's times get cleared too.
+	config.load(best_times_file)
+	var sections = config.get_sections()
+	if sections.is_empty():
+		sections = KNOWN_MAP_IDS
+	for map_name in sections:
 		config.set_value(map_name, "times", [9999.0, 9999.0, 9999.0])
 	config.save(best_times_file)

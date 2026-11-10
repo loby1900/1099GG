@@ -45,9 +45,6 @@ func apply_x_force(delta, collision_point):
 	var x_force = 0.7* desired_vel_change + delta
 	
 	car.apply_force(dir * x_force, collision_point - car.global_position)
-	
-	if car.debug:
-		DebugDraw3D.draw_arrow_line(global_position, global_position + (dir * x_force), Color.RED, 0.1, true)
 
 func get_point_velocity(point: Vector3) -> Vector3:
 	return car.linear_velocity + car.angular_velocity.cross(point - car.global_position)
@@ -59,11 +56,6 @@ func apply_z_force(collision_point):
 	var z_force = dir.dot(tire_world_vel) * car.mass / 10
 	
 	car.apply_force(-dir * z_force, collision_point - car.global_position)
-	
-	var point = Vector3(collision_point.x, collision_point.y + car.wheel_radius, collision_point.z)
-	
-	if car.debug:
-		DebugDraw3D.draw_arrow_line(point, point + (-dir * z_force * 2), Color.BLUE_VIOLET, 0.1, true)
 
 
 func acceleration(collision_point):
@@ -94,9 +86,6 @@ func acceleration(collision_point):
 
 	car.apply_force(accel_dir * torque, point - car.global_position)
 
-	if car.debug:
-		DebugDraw3D.draw_arrow_line(point, point + (accel_dir * torque), Color.BLUE, 0.1, true)
-
 
 func suspension(delta, collision_point):
 	# the direction the force will be applied
@@ -120,11 +109,6 @@ func suspension(delta, collision_point):
 
 	var point = Vector3(collision_point.x, collision_point.y + car.wheel_radius, collision_point.z)
 	car.apply_force(susp_dir * suspension_force, point - car.global_position)
-	
-	if car.debug:
-		#DebugDraw3D.draw_sphere(point, 0.1)
-		DebugDraw3D.draw_arrow_line(global_position, to_global(position + Vector3(-position.x, (suspension_force.y / 2), -position.z)), Color.GREEN, 0.1, true)
-		DebugDraw3D.draw_line_hit_offset(global_position, to_global(position + Vector3(-position.x, -1, -position.z)), true, distance, 0.2, Color.RED, Color.RED)
 
 const WHEEL_ROTATION_FACTOR = 360.0  # Degrees in a circle
 func position_wheel(collision_point: Vector3, delta: float):

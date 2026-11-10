@@ -1,0 +1,256 @@
+[gd_scene load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://Scripts/SelectCar.gd" id="1"]
+[ext_resource type="Theme" path="res://UI/Theme.tres" id="2"]
+[ext_resource type="Texture2D" path="res://Images/ShowroomBG.png" id="3"]
+[ext_resource type="Texture2D" path="res://Images/CarIcon_Porsche.png" id="4"]
+[ext_resource type="Texture2D" path="res://Images/CarIcon_Dodge.png" id="5"]
+[ext_resource type="Texture2D" path="res://Images/CarIcon_Supra.png" id="6"]
+[ext_resource type="Texture2D" path="res://Images/CarIcon_SpiritR.png" id="7"]
+[ext_resource type="Texture2D" path="res://Images/CarIcon_Mercedes.png" id="8"]
+[ext_resource type="Texture2D" path="res://Images/CarIcon_EVO.png" id="9"]
+[ext_resource type="Texture2D" path="res://Images/CarIcon_NSX.png" id="10"]
+[ext_resource type="Texture2D" path="res://Images/CarIcon_Formula.png" id="11"]
+[ext_resource type="Texture2D" path="res://Images/CarIcon_BMW330i.png" id="12"]
+[ext_resource type="Texture2D" path="res://Images/CarIcon_BMWM4GT3.png" id="13"]
+
+[node name="SelectCar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2")
+script = ExtResource("1")
+
+[node name="BG" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.45)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_top = 26.0
+offset_right = 300.0
+offset_bottom = 80.0
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 36
+text = "Select Car"
+
+[node name="Grid" type="GridContainer" parent="."]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -496.0
+offset_top = -273.0
+offset_right = 496.0
+offset_bottom = 273.0
+columns = 4
+theme_override_constants/h_separation = 24
+theme_override_constants/v_separation = 18
+
+[node name="Porsche" type="VBoxContainer" parent="Grid"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Thumb" type="TextureButton" parent="Grid/Porsche"]
+custom_minimum_size = Vector2(230, 142)
+layout_mode = 2
+texture_normal = ExtResource("4")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Grid/Porsche"]
+layout_mode = 2
+horizontal_alignment = 1
+text = "Porsche"
+
+[node name="Dodge" type="VBoxContainer" parent="Grid"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Thumb" type="TextureButton" parent="Grid/Dodge"]
+custom_minimum_size = Vector2(230, 142)
+layout_mode = 2
+texture_normal = ExtResource("5")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Grid/Dodge"]
+layout_mode = 2
+horizontal_alignment = 1
+text = "Dodge Challenger"
+
+[node name="Supra" type="VBoxContainer" parent="Grid"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Thumb" type="TextureButton" parent="Grid/Supra"]
+custom_minimum_size = Vector2(230, 142)
+layout_mode = 2
+texture_normal = ExtResource("6")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Grid/Supra"]
+layout_mode = 2
+horizontal_alignment = 1
+text = "Toyota Supra"
+
+[node name="RX7" type="VBoxContainer" parent="Grid"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Thumb" type="TextureButton" parent="Grid/RX7"]
+custom_minimum_size = Vector2(230, 142)
+layout_mode = 2
+texture_normal = ExtResource("7")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Grid/RX7"]
+layout_mode = 2
+horizontal_alignment = 1
+text = "Mazda RX7"
+
+[node name="Mercedes" type="VBoxContainer" parent="Grid"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Thumb" type="TextureButton" parent="Grid/Mercedes"]
+custom_minimum_size = Vector2(230, 142)
+layout_mode = 2
+texture_normal = ExtResource("8")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Grid/Mercedes"]
+layout_mode = 2
+horizontal_alignment = 1
+text = "Mercedes 190 Evo2"
+
+[node name="EVO" type="VBoxContainer" parent="Grid"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Thumb" type="TextureButton" parent="Grid/EVO"]
+custom_minimum_size = Vector2(230, 142)
+layout_mode = 2
+texture_normal = ExtResource("9")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Grid/EVO"]
+layout_mode = 2
+horizontal_alignment = 1
+text = "Lancer Evo"
+
+[node name="NSX" type="VBoxContainer" parent="Grid"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Thumb" type="TextureButton" parent="Grid/NSX"]
+custom_minimum_size = Vector2(230, 142)
+layout_mode = 2
+texture_normal = ExtResource("10")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Grid/NSX"]
+layout_mode = 2
+horizontal_alignment = 1
+text = "Acura NSX"
+
+[node name="F1" type="VBoxContainer" parent="Grid"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Thumb" type="TextureButton" parent="Grid/F1"]
+custom_minimum_size = Vector2(230, 142)
+layout_mode = 2
+texture_normal = ExtResource("11")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Grid/F1"]
+layout_mode = 2
+horizontal_alignment = 1
+text = "Formula 1"
+
+[node name="BMW330i" type="VBoxContainer" parent="Grid"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Thumb" type="TextureButton" parent="Grid/BMW330i"]
+custom_minimum_size = Vector2(230, 142)
+layout_mode = 2
+texture_normal = ExtResource("12")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Grid/BMW330i"]
+layout_mode = 2
+horizontal_alignment = 1
+text = "BMW 330i"
+
+[node name="BMWM4GT3" type="VBoxContainer" parent="Grid"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Thumb" type="TextureButton" parent="Grid/BMWM4GT3"]
+custom_minimum_size = Vector2(230, 142)
+layout_mode = 2
+texture_normal = ExtResource("13")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Grid/BMWM4GT3"]
+layout_mode = 2
+horizontal_alignment = 1
+text = "BMW M4 GT3"
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 0
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 36.0
+offset_top = -86.0
+offset_right = 176.0
+offset_bottom = -30.0
+text = "Back"
+
+[connection signal="pressed" from="Grid/Porsche/Thumb" to="." method="_on_porsche_pressed"]
+[connection signal="pressed" from="Grid/Dodge/Thumb" to="." method="_on_dodge_pressed"]
+[connection signal="pressed" from="Grid/Supra/Thumb" to="." method="_on_supra_pressed"]
+[connection signal="pressed" from="Grid/RX7/Thumb" to="." method="_on_rx7_pressed"]
+[connection signal="pressed" from="Grid/Mercedes/Thumb" to="." method="_on_mercedes_pressed"]
+[connection signal="pressed" from="Grid/EVO/Thumb" to="." method="_on_evo_pressed"]
+[connection signal="pressed" from="Grid/NSX/Thumb" to="." method="_on_nsx_pressed"]
+[connection signal="pressed" from="Grid/F1/Thumb" to="." method="_on_f1_pressed"]
+[connection signal="pressed" from="Grid/BMW330i/Thumb" to="." method="_on_bmw330i_pressed"]
+[connection signal="pressed" from="Grid/BMWM4GT3/Thumb" to="." method="_on_bmwm4gt3_pressed"]
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

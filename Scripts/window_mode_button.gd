@@ -52,6 +52,5 @@ func load_settings():
 		var mode = config.get_value("video", "window_mode", 0)
 		options_button.selected = mode
 		set_window_mode(mode)
-		
-func _on_back_pressed():
-	get_tree().change_scene_to_file("res://Scenes/options_menu.tscn")
+# Back navigation for this screen lives in video_menu.gd on the scene root
+# (one back button per screen instead of a duplicate per component).
